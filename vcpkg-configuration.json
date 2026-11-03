@@ -1,0 +1,14 @@
+{
+  "default-registry": {
+    "kind": "builtin",
+    "baseline": "dd3097e305afa53f7b4312371f62058d2e665320"
+  },
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/debugee/my-vcpkg-registry.git", 
+      "baseline": "069cb91655990865e0a16b32eb377dc0fccf2a10",
+      "packages": [ "mylib" ]
+    }
+  ]
+}
