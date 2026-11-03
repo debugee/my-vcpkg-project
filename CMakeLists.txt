@@ -10,6 +10,20 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
 
+set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/triplets")
+#debug mylib’s CMakeLists.txt
+#set(VCPKG_INSTALL_OPTIONS "--binarysource=clear;--x-cmake-configure-debug=/tmp/vcpkg_configure_pipe\;mylib")
+
+
+#debug mylib’s portfile.cmake
+#mylib in overlays/ports/mylib is a copy of mylib for debugging purposes, when debug ok, you can commit it to git my-vcpkg-registry.git
+#and then run vcpkg x-add-version --all  --vcpkg-root=. in my-vcpkg-registry.git to update the versions/ and baseline.json
+#and then commit and push the new versions/ and baseline.json to my-vcpkg-registry.git
+#and then update vcpkg-configuration.json baseline to the new commit id of my-vcpkg-registry.git
+#if you want to debug mylib’s portfile.cmake uncomment the following two line
+set(VCPKG_OVERLAY_PORTS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/ports")
+#set(VCPKG_INSTALL_OPTIONS "--binarysource=clear;--x-cmake-debug=/tmp/vcpkg_configure_pipe\;mylib")
+
 if(DEFINED ENV{VCPKG_ROOT})
     file(TO_CMAKE_PATH "$ENV{VCPKG_ROOT}" CMAKE_VCPKG_ROOT)
     include("${CMAKE_VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
@@ -22,6 +36,3 @@ add_executable(test main.cpp)
 find_package(MyLibrary CONFIG REQUIRED)
 
 target_link_libraries(test PRIVATE MyLibrary::MyLibrary)
-
-target_compile_options(test PRIVATE -v)
-target_link_options(test PRIVATE -v)
