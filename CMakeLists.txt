@@ -10,8 +10,10 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
 
-set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/triplets")
-#debug mylib’s CMakeLists.txt
+
+#debug mylib’s CMakeLists.txt, if you want to debug mylib’s CMakeLists.txt uncomment the following two line
+#set VCPKG_BUILD_TYPE release is very important, if not, Ninja debug and release compile run at a the same time,and pipe(same pipe name) error will occur
+#set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/triplets")
 #set(VCPKG_INSTALL_OPTIONS "--binarysource=clear;--x-cmake-configure-debug=/tmp/vcpkg_configure_pipe\;mylib")
 
 
@@ -21,7 +23,7 @@ set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/triplets")
 #and then commit and push the new versions/ and baseline.json to my-vcpkg-registry.git
 #and then update vcpkg-configuration.json baseline to the new commit id of my-vcpkg-registry.git
 #if you want to debug mylib’s portfile.cmake uncomment the following two line
-set(VCPKG_OVERLAY_PORTS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/ports")
+#set(VCPKG_OVERLAY_PORTS "${CMAKE_CURRENT_SOURCE_DIR}/overlays/ports")
 #set(VCPKG_INSTALL_OPTIONS "--binarysource=clear;--x-cmake-debug=/tmp/vcpkg_configure_pipe\;mylib")
 
 if(DEFINED ENV{VCPKG_ROOT})
