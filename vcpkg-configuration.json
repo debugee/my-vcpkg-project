@@ -7,7 +7,7 @@
     {
       "kind": "git",
       "repository": "https://github.com/debugee/my-vcpkg-registry.git", 
-      "baseline": "a6e84b3295191a94a4a91d3ef73e55e675a4ac99",
+      "baseline": "694d498c2b51bc93fd4d329d951daadfa6f094cc",
       "packages": [ "mylib" ]
     }
   ]
