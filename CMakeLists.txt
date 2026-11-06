@@ -35,6 +35,19 @@ endif()
 
 add_executable(test main.cpp)
 
-find_package(MyLibrary CONFIG REQUIRED)
 
-target_link_libraries(test PRIVATE MyLibrary::MyLibrary)
+set(USE_PKG_CONFIG ON)
+
+if (USE_PKG_CONFIG)
+    message(STATUS "Using pkg-config to find MyLibrary")
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(MyLibrary REQUIRED IMPORTED_TARGET mylibrary)
+    # target_include_directories(test PRIVATE ${MyLibrary_INCLUDE_DIRS})
+    # target_link_directories(test PRIVATE ${MyLibrary_LIBRARY_DIRS})
+    # target_link_libraries(test PRIVATE ${MyLibrary_LIBRARIES})
+    target_link_libraries(test PRIVATE PkgConfig::MyLibrary)
+else()
+    message(STATUS "Using CMake find_package to find MyLibrary")
+    find_package(MyLibrary REQUIRED)
+    target_link_libraries(test PRIVATE MyLibrary::MyLibrary)
+endif()
